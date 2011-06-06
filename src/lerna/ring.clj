@@ -3,12 +3,15 @@
 ;;;; See LICENSE at the root of this project for terms of use and distribution.
 (ns lerna.ring
   (:refer-clojure :exclude [seq find next])
-  (:require [lerna.node :as node]))
+  (:require [clojure.tools.logging :as log]
+            [lerna.node :as node]))
 
 (defn create []
+  (log/trace "Creating ring")
   {})
 
 (defn add [ring nodes]
+  (log/debug "Adding nodes" (pr-str (map :id nodes)))
   (update-in ring [:nodes] #(sort-by :id (set (concat % nodes)))))
 
 (defn seq [ring hash]
